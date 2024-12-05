@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Grantspan</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+        }
+
+      
+        /* Grantspan Color Palette */
+        :root {
+            --grantspan-primary: #0A2940; /* Dark Pink */
+            --grantspan-secondary: #0A2940;; /* Green */
+            --grantspan-light: #f9f9f9; /* Light background */
+            --grantspan-dark: #333; /* Text Color */
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color:#500202;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-bar .welcome {
+            font-size: 16px;
+        }
+        .top-bar .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .top-bar .actions button {
+            background: var(--grantspan-secondary);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .top-bar .actions button:hover {
+            background: #45a049;
+        }
+        .top-bar .actions button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .top-bar .actions button:hover {
+            background-color: #45a049;
+        }
+         /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--grantspan-secondary);
+            padding: 10px 20px;
+            color: #12b60f;
+        }
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 15px;
+        }
+        nav ul li a {
+            color: #12b60f;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        nav ul li a:hover {
+            background: white;
+            color: var(--grantspan-secondary);
+        }
+
+        .sidebar {
+            background-color: #2D3B52;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 100vh;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #007bff; /* Blue on hover */
+        }
+
+        .sidebar ul li a i {
+            margin-right: 10px;
+        }
+
+        .main-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            font-family: 'Roboto', sans-serif;
+            color: #2D3B52;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #0A2940;
+            color: #12b60f;
+        }
+    
+
+        .btn-custom {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #45a049;
+        }
+
+        .form-section {
+            background-color:#0A2940;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .form-section h3 {
+            color: #12b60f;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-section label {
+            font-weight: bold;
+            color: #12b60f;
+        }
+
+        .form-section input, .form-section textarea {
+            border-radius: 8px;
+            border: 1px solid #0A2940;
+            padding: 10px;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .form-section button {
+            background-color: #12b60f;;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-section button:hover {
+            background-color: #45a049;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard {
+                display: block;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="welcome">
+            <i class="fas fa-user-circle"></i> Welcome Admin
+        </div>
+       
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="brand-left">
+            <img src="Images/Grantspan.png" alt="Company Logo" class="company-logo">
+        </a>
+        <ul>
+            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#opportunities"><i class="fas fa-briefcase"></i> Opportunities</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Layout -->
+    <div class="container-fluid dashboard">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <aside class="sidebar">
+                    <ul>
+                        <li><a href="javascript:void(0)" id="show-add-opportunity"><i class="fas fa-plus-circle"></i> Add New Opportunity</a></li>
+                        <li><a href="javascript:void(0)" id="show-add-opportunity-info"><i class="fas fa-info-circle"></i> Add Opportunity Info</a></li>
+                        <li><a href="javascript:void(0)" id="show-existing-opportunities"><i class="fas fa-eye"></i> View Opportunities</a></li>
+                    </ul>
+                </aside>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                <main class="main-content">
+
+                    <!-- Add Opportunity Section -->
+                    <section id="add-opportunity" class="form-section" style="display: none;">
+                        <h3>Add New Opportunity</h3>
+                        <form action="add_opportunity.php" method="POST">
+                            <label for="title">Opportunity Title:</label>
+                            <input type="text" id="title" name="title" class="form-control" placeholder="Enter the opportunity title" required>
+
+                            <label for="amount" class="mt-3">Grant Amount:</label>
+                            <input type="text" id="amount" name="amount" class="form-control" placeholder="Enter the funding amount" required>
+
+                            <label for="deadline" class="mt-3">Deadline:</label>
+                            <input type="date" id="deadline" name="deadline" class="form-control" required>
+
+                            <label for="description" class="mt-3">Description:</label>
+                            <textarea id="description" name="description" rows="4" class="form-control" placeholder="Enter a brief description" required></textarea>
+
+                            <button type="submit" class="btn-custom mt-3">Add Opportunity</button>
+                        </form>
+                    </section>
+
+                    <!-- Add Opportunity Info Section -->
+                    <section id="add-opportunity-info" class="form-section" style="display: none;">
+                        <h3>Add Opportunity Info</h3>
+                        <form action="add_opportunity_info.php" method="POST">
+                            <label for="opportunity-info">Opportunity Info:</label>
+                            <input type="text" id="opportunity-info" name="title" class="form-control" placeholder="Enter the opportunity title" required>
+
+                            <label for="description" class="mt-3">Description:</label>
+                            <textarea id="description" name="description" rows="4" class="form-control" placeholder="Enter a brief description" required></textarea>
+
+                            <label for="amount" class="mt-3">Grant Amount:</label>
+                            <input type="text" id="amount" name="amount" class="form-control" placeholder="Enter the funding amount" required>
+
+                            <label for="deadline" class="mt-3">Deadline:</label>
+                            <input type="date" id="deadline" name="deadline" class="form-control" required>
+
+                            <label for="email" class="mt-3">Email:</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" required>
+
+                            <label for="tel" class="mt-3">Telephone:</label>
+                            <input type="tel" id="tel" name="tel" class="form-control" placeholder="Enter Telephone" required>
+
+                            <label for="founder-website" class="mt-3">Founder Website:</label>
+                            <input type="url" id="founder-website" name="founder_website" class="form-control" placeholder="Enter Founder Website URL" required>
+
+                            <button type="submit" class="btn-custom mt-3">Add Opportunity</button>
+                        </form>
+                    </section>
+
+                    <!-- Existing Opportunities Section -->
+                    <section id="existing-opportunities" style="display: block;">
+                        <h3>Existing Opportunities</h3>
+                        <div class="tables-container">
+                            <!-- Opportunities Table -->
+                            <div class="table-container">
+                                <table id="opportunities-table" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                            <th>Deadline</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Opportunities will be loaded dynamically here -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Opportunity Info Table -->
+                            <div class="table-container">
+                                <h3>Existing Opportunity Info</h3>
+                                <table id="opportunity-info-table" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Opportunity Info</th>
+                                            <th>Date Added</th>
+                                            <th>Amount</th>
+                                            <th>Deadline</th>
+                                            <th>Email</th>
+                                            <th>Tel</th>
+                                            <th>Founder Website</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Opportunity Info will be loaded dynamically here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to Toggle Visibility of Sections -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const showAddOpportunityLink = document.getElementById('show-add-opportunity');
+            const showAddOpportunityInfoLink = document.getElementById('show-add-opportunity-info');
+            const showExistingOpportunitiesLink = document.getElementById('show-existing-opportunities');
+            const addOpportunitySection = document.getElementById('add-opportunity');
+            const addOpportunityInfoSection = document.getElementById('add-opportunity-info');
+            const existingOpportunitiesSection = document.getElementById('existing-opportunities');
+            
+            addOpportunitySection.style.display = 'none';
+            addOpportunityInfoSection.style.display = 'none';
+            existingOpportunitiesSection.style.display = 'block'; // Show existing opportunities by default
+
+            showAddOpportunityLink.addEventListener('click', function() {
+                addOpportunitySection.style.display = 'block';
+                addOpportunityInfoSection.style.display = 'none';
+                existingOpportunitiesSection.style.display = 'none';
+            });
+
+            showAddOpportunityInfoLink.addEventListener('click', function() {
+                addOpportunityInfoSection.style.display = 'block';
+                addOpportunitySection.style.display = 'none';
+                existingOpportunitiesSection.style.display = 'none';
+            });
+
+            showExistingOpportunitiesLink.addEventListener('click', function() {
+                existingOpportunitiesSection.style.display = 'block';
+                addOpportunitySection.style.display = 'none';
+                addOpportunityInfoSection.style.display = 'none';
+            });
+
+            fetch('fetch_opportunities.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('opportunities-table').querySelector('tbody').innerHTML = data;
+                })
+                .catch(error => console.error('Error fetching opportunities:', error));
+
+            fetch('fetch_opportunity_info.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('opportunity-info-table').querySelector('tbody').innerHTML = data;
+                })
+                .catch(error => console.error('Error fetching opportunity info:', error));
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
